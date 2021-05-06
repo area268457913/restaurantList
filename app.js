@@ -62,6 +62,42 @@ app.get('/todos/:id', (req, res) => {
     .then((todo) => res.render('detail', { todo }))
     .catch(error => console.log(error))
 })
+//  修改
+app.get('/todos/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .lean()
+    .then((todo) => res.render('edit', { todo }))
+    .catch(error => console.log(error))
+})
+app.post('/todos/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  return Todo.findById(id)
+    .then(todo => {
+      todo.name = name
+      todo.name_en = name_en
+      todo.category = category
+      todo.image = image
+      todo.location = location
+      todo.phone = phone
+      todo.google_map = google_map
+      todo.rating = rating
+      todo.description = description
+      return todo.save()
+    })
+    .then(() => res.redirect(`/todos/${id}`))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`Express is listening on http:/localhost:${port}`)
 })
