@@ -6,6 +6,7 @@
         <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
           width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
         我的餐廳清單
+        <a href="./todos/new">新增餐廳</a>
       </a>
     </div>
   </nav>
@@ -24,6 +25,7 @@
             value="{{keyword}}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
+
           </div>
         </div>
       </form>
@@ -36,8 +38,8 @@
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
-        {{#each restaurants}}
-        <a href="/restaurants/{{this.id}}" class="text-secondary">
+        {{#each todos}}
+        <a href="/todos/{{this._id}}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{this.image}}" alt="Sababa 沙巴巴中東美食">
             <div class="card-body p-3">
@@ -51,7 +53,14 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
-
+              <div>
+                <form action="./todos/{{ this._id }}/edit" method="GET" style="display: inline;" <button
+                  class="btn btn-info m-1" type="submit">edit</button>
+                </form>
+                <form action="./todos/{{ this._id }}/delete" method="POST" style="display: inline;">
+                  <button class="btn btn-info m-1" type="submit">delete</button>
+                </form>
+              </div>
             </div>
           </div>
         </a>

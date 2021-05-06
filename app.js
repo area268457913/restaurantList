@@ -3,17 +3,27 @@ const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
+const mongoose = require('mongoose')
+const Todo = require('./models/todo')
+
+db.on('error', () => {
+  console.log('mongodb error! ')
+})
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Todo.find()
+    .lean()
+    .then(todos => res.render('index', { todos }))
+    .catch(error => console.error(error))
+
 })
-app.get('/restaurants/:id', (req, res) => {
-  const id = req.params.id
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === id)
-  res.render('show', { restaurant: restaurant })
-})
+
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
   const restaurants = restaurantList.results.filter(restaurant => {
