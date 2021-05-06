@@ -5,6 +5,8 @@ const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 const mongoose = require('mongoose')
 const Todo = require('./models/todo')
+const db = mongoose.connection
+const bodyParser = require('body-parser')
 
 db.on('error', () => {
   console.log('mongodb error! ')
@@ -16,6 +18,8 @@ mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useU
 app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get('/', (req, res) => {
   Todo.find()
     .lean()
