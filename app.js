@@ -97,7 +97,14 @@ app.post('/todos/:id/edit', (req, res) => {
     .then(() => res.redirect(`/todos/${id}`))
     .catch(error => console.log(error))
 })
-
+// 刪除
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .then(todo => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 app.listen(port, () => {
   console.log(`Express is listening on http:/localhost:${port}`)
 })
