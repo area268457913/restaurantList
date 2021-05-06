@@ -30,6 +30,10 @@ cd restaurant
 
 npm install
 
+新增種子資料 
+
+npm run seed
+
 執行
 
 npm run dev
