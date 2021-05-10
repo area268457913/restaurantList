@@ -1,23 +1,24 @@
 const express = require('express')
-const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
-const mongoose = require('mongoose')
-const Todo = require('./models/todo')
-const db = mongoose.connection
+// const mongoose = require('mongoose')
+// const Todo = require('./models/todo')
+// const db = mongoose.connection
 const bodyParser = require('body-parser')
 // 載入 method-override
 const methodOverride = require('method-override')
 const routes = require('./routes')
 
-db.on('error', () => {
-  console.log('mongodb error! ')
-})
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+require('./config/mongoose')
+const app = express()
+// db.on('error', () => {
+//   console.log('mongodb error! ')
+// })
+// db.once('open', () => {
+//   console.log('mongodb connected!')
+// })
+// mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
