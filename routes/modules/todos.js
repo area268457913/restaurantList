@@ -21,6 +21,7 @@ router.post('/new', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
+
 // 遊覽特定頁面
 router.get('/:id', (req, res) => {
   const id = req.params.id

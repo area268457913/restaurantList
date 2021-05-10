@@ -1,7 +1,7 @@
 const express = require('express')
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
+// const restaurantList = require('./restaurant.json')
 // const mongoose = require('mongoose')
 // const Todo = require('./models/todo')
 // const db = mongoose.connection
@@ -36,13 +36,13 @@ app.use(routes)
 
 // })
 
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
-})
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword
+//   const restaurants = restaurantList.results.filter(restaurant => {
+//     return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
+//   })
+//   res.render('index', { restaurants: restaurants, keyword: keyword })
+// })
 
 // // 新增
 // app.get('/todos/new', (req, res) => {
