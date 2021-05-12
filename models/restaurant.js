@@ -54,4 +54,4 @@ const restaurantSchema = new Schema({
 })
 
 
-module.exports = mongoose.model('Todo', restaurantSchema)
+module.exports = mongoose.model('Rest', restaurantSchema)
