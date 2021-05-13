@@ -24,7 +24,7 @@ git clone  https://github.com/area268457913/restaurantList.git
 
 進入專案目錄
 
-cd restaurant
+cd restaurantList
 
 安裝套件
 

@@ -17,6 +17,8 @@ router.post('/new', (req, res) => {
   // const google_map = req.body.google_map
   // const rating = req.body.rating
   // const description = req.body.description
+
+
   return Rest.create({ name, name_en, category, image, location, phone, google_map, rating, description })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
