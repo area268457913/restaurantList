@@ -2,6 +2,7 @@ const express = require('express')
 const port = 3000
 const exphbs = require('express-handlebars')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 // const restaurantList = require('./restaurant.json')
 // const mongoose = require('mongoose')
 // const Todo = require('./models/todo')
@@ -32,6 +33,12 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
+usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 app.use(routes)
 
 // app.get('/', (req, res) => {
