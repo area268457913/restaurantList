@@ -1,17 +1,20 @@
 const express = require('express')
-const port = 3000
 const exphbs = require('express-handlebars')
 const session = require('express-session')
-const usePassport = require('./config/passport')
 const flash = require('connect-flash')
+const bodyParser = require('body-parser')
+// 載入 method-override
+const methodOverride = require('method-override')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 // const restaurantList = require('./restaurant.json')
 // const mongoose = require('mongoose')
 // const Todo = require('./models/todo')
 // const db = mongoose.connection
-const bodyParser = require('body-parser')
-// 載入 method-override
-const methodOverride = require('method-override')
+const usePassport = require('./config/passport')
 const routes = require('./routes')
+const PORT = process.env.PORT || 3000
 
 require('./config/mongoose')
 const app = express()
@@ -25,7 +28,7 @@ const app = express()
 app.engine('handlebars', exphbs({ defaultlayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(session({
-  secret: 'ThisIsMyPassword',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 
@@ -131,6 +134,6 @@ app.use(routes)
 //     .then(() => res.redirect('/'))
 //     .catch(error => console.log(error))
 // })
-app.listen(port, () => {
-  console.log(`Express is listening on http:/localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Express is listening on http:/localhost:${PORT}`)
 })
