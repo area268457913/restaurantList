@@ -14,10 +14,9 @@ router.get('/', (req, res) => {
 
 //搜尋功能
 router.get('/search', (req, res) => {
-
+  const userId = req.user._id
   const keyword = req.query.keyword
-
-  return Rest.find()
+  return Rest.find({ userId })
     .lean()
     .then(restaurants => restaurants.filter(restaurants => {
       return restaurants.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()) || restaurants.category.toLocaleLowerCase().includes(keyword.toLocaleLowerCase())
